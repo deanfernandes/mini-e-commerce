@@ -8,6 +8,7 @@ import ProductDetails from './pages/ProductDetails';
 import NotFound from './pages/NotFound';
 import Products from './pages/Products';
 import ProductsLayout from './components/ProductsLayout';
+import Cart from './pages/Cart';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route index  element={<Products/>}/>
           <Route path=':id' element={<ProductDetails/>}/>
         </Route>
+        <Route path='/cart' element={<Cart/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
     </div>

@@ -1,6 +1,10 @@
-import { NavLink } from "react-router";
+import { NavLink, Link } from "react-router";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
 
 function Header() {
+    const cartLength = useSelector((state: RootState) => state.cartReducer.length);
+
     return (
         <header>
             <nav className="navbar bg-primary navbar-expand-lg">
@@ -10,7 +14,7 @@ function Header() {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
+                        <ul className="navbar-nav me-auto">
                             <li className="nav-item">
                                 <NavLink
                                 to="/"
@@ -32,6 +36,16 @@ function Header() {
                                 </NavLink>
                             </li>
                         </ul>
+
+                        <div className="d-flex">
+                            <Link to='/cart' className="btn btn-outline-light">
+                                <i className="bi bi-cart me-2"></i>
+                                Cart
+                                <span className="position-absolute top-50 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {cartLength}
+                                </span>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </nav>
