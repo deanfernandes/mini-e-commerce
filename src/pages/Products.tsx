@@ -1,44 +1,12 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import ProductCard from '../components/ProductCard';
 import { useSearchParams } from 'react-router';
-
-export interface Product {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
-}
+import { useOutletContext } from 'react-router';
+import { Product, ProductsContext } from '../types/product';
 
 const PRODUCTS_PER_PAGE = 4;
 
-async function fetchProducts(): Promise<Product[]>{
-    const response = await axios.get<Product[]>("https://fakestoreapi.com/products");
-    return response.data;
-}
-
 function Products() {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-    useEffect(()=> {
-        setLoading(true);
-        (async () => {
-        try {
-            const data = await fetchProducts();
-            setProducts(data);
-        }
-        catch (err) {
-            console.error(err);
-            setError('Failed to fetch products');
-        }
-        finally {
-            setLoading(false);
-        }
-        })();  
-    }, [])
+    const { products } = useOutletContext<ProductsContext>();
     const [searchParams, setSearchParams] = useSearchParams();
     const categories = Array.from(new Set(products.map(p => p.category))).sort();
     const filterCategory = searchParams.get('category');
@@ -67,13 +35,6 @@ function Products() {
         newParams.set('page', String(page));
         setSearchParams(newParams);
     };
-
-    if (loading) return (
-    <div className="spinner-border" role="status">
-        <span className="visually-hidden">Loading products...</span>
-    </div>
-    )
-    if (error) return <div>{error}</div>;
 
     return (
         <div className='container'>
