@@ -1,5 +1,3 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { Routes, Route } from 'react-router';
 import Header from './components/Header';
@@ -9,6 +7,7 @@ import NotFound from './pages/NotFound';
 import Products from './pages/Products';
 import ProductsLayout from './components/ProductsLayout';
 import Cart from './pages/Cart';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (

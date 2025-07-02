@@ -41,8 +41,8 @@ function Header() {
                         </ul>
 
                         <div className="d-flex cart">
-                            <Link to='/cart' className="btn btn-outline-light">
-                                Cart <i className="bi bi-cart"></i>
+                            <Link to='/cart' className="btn btn-outline-light" title="Go to shopping cart">
+                                <i className="bi bi-cart"></i>
                                 <span className="position-absolute translate-middle badge rounded-pill bg-danger cart__badge">
                                     {cartLength}
                                 </span>
