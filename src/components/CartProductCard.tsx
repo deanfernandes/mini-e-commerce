@@ -1,4 +1,4 @@
-import { CartProduct, removeFromCart } from "../features/cart/cartSlice";
+import { CartProduct, removeFromCart, incrementCartProduct, decrementCartProduct } from "../features/cart/cartSlice";
 import { useDispatch } from "react-redux";
 
 type CartProductCardProps = {
@@ -23,7 +23,11 @@ function CartProductCard({ cartProduct }: CartProductCardProps) {
                     <div className="card-body">
                         <h5 className="card-title">{cartProduct.title}</h5>
                         <p className="card-text fw-bold">{cartProduct.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
-                        <p className="card-text">{cartProduct.quantity}</p>
+                        <p className="card-text">
+                            <button className="btn btn-primary btn-sm rounded-pill me-3" onClick={()=>dispatch(decrementCartProduct(cartProduct.id))} title="Remove one from quantity">-</button>
+                            {cartProduct.quantity}
+                            <button className="btn btn-primary btn-sm rounded-pill ms-3" onClick={()=>dispatch(incrementCartProduct(cartProduct.id))} title="Add one to quantity">+</button>    
+                        </p>
                         <p className="card-text">Sub total: {(cartProduct.price * cartProduct.quantity).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
                         <p className="card-text">
                             <button className="btn btn-primary rounded-pill" onClick={()=>deleteItem(cartProduct.id)} title="Delete item from cart">

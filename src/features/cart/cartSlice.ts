@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Product } from '../../types/product';
 
 export interface CartProduct extends Product {
@@ -29,10 +29,27 @@ const cartSlice = createSlice({
 
         clearCart(state) {
             state.length = 0;
-        }
+        },
+
+        incrementCartProduct(state, action: PayloadAction<number>) {
+            const existingProduct = state.find(p=>p.id === action.payload);
+            if(existingProduct) {
+                existingProduct.quantity += 1;
+            }
+        },
+        decrementCartProduct(state, action: PayloadAction<number>) {
+            const existingProduct = state.find(p=>p.id === action.payload);
+            if(existingProduct) {
+                if(existingProduct.quantity === 1) {
+                    return state.filter(c=>c.id !== action.payload);
+                } else {
+                    existingProduct.quantity -= 1;
+                }
+            }
+        },
     },
 }
 );
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearCart, incrementCartProduct, decrementCartProduct } = cartSlice.actions;
 export default cartSlice.reducer;
