@@ -31,6 +31,7 @@ function Header() {
                             <li className="nav-item">
                                 <NavLink
                                 to="/products"
+                                end
                                 className={({ isActive }) =>
                                     isActive ? 'nav-link active fw-bold text-decoration-underline disabled' : 'nav-link'
                                 }
