@@ -1,12 +1,14 @@
 import ProductCard from '../components/ProductCard';
 import { useSearchParams } from 'react-router';
-import { useOutletContext } from 'react-router';
-import { Product, ProductsContext } from '../types/product';
+import { Product } from '../types/product';
 
 const PRODUCTS_PER_PAGE = 4;
 
-function Products() {
-    const { products } = useOutletContext<ProductsContext>();
+type ProductsProps = {
+    products: Product[],
+}
+
+function Products({products}: ProductsProps) {
     const [searchParams, setSearchParams] = useSearchParams();
     const categories = Array.from(new Set(products.map(p => p.category))).sort();
     const filterCategory = searchParams.get('category');

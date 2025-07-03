@@ -22,7 +22,7 @@ function Header() {
                                 <NavLink
                                 to="/"
                                 className={({ isActive }) =>
-                                    isActive ? 'nav-link active fw-bold text-decoration-underline' : 'nav-link'
+                                    isActive ? 'nav-link active fw-bold text-decoration-underline disabled' : 'nav-link'
                                 }
                                 >
                                     Home
@@ -32,10 +32,20 @@ function Header() {
                                 <NavLink
                                 to="/products"
                                 className={({ isActive }) =>
-                                    isActive ? 'nav-link active fw-bold text-decoration-underline' : 'nav-link'
+                                    isActive ? 'nav-link active fw-bold text-decoration-underline disabled' : 'nav-link'
                                 }
                                 >
                                     Products
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink
+                                to="/favorites"
+                                className={({ isActive }) =>
+                                    isActive ? 'nav-link active fw-bold text-decoration-underline disabled' : 'nav-link'
+                                }
+                                >
+                                    Favorites
                                 </NavLink>
                             </li>
                         </ul>
