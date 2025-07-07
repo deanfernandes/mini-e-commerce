@@ -5,7 +5,51 @@ export interface CartProduct extends Product {
     quantity: number;
 }
 
-const initialState: CartProduct[] = [];
+function getLocalCartProducts(): CartProduct[] {
+    function isCartProduct(obj: any): obj is CartProduct {
+        return (
+            typeof obj === 'object' &&
+            obj !== null &&
+            typeof obj.id === 'number' &&
+            Number.isFinite(obj.id) &&
+
+            typeof obj.title === 'string' &&
+
+            typeof obj.price === 'number' &&
+            Number.isFinite(obj.price) &&
+
+            typeof obj.description === 'string' &&
+
+            typeof obj.category === 'string' &&
+
+            typeof obj.image === 'string' &&
+
+            typeof obj.quantity === 'number' &&
+            Number.isFinite(obj.quantity)
+        );
+    }
+
+    const data = window.sessionStorage.getItem("cartProducts");
+    if(!data) {
+        return [];
+    }
+
+    try {
+        const cartProducts = JSON.parse(data);
+        if(Array.isArray(cartProducts) &&
+            cartProducts.every(isCartProduct)) {
+                return cartProducts;
+            }
+    }
+    catch (error) {
+        console.error(error);
+        console.log(data);
+    }
+
+    return [];
+}
+
+const initialState: CartProduct[] = getLocalCartProducts();
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -20,6 +64,8 @@ const cartSlice = createSlice({
             else {
                 state.push({...product, quantity: 1})
             }
+
+            window.sessionStorage.setItem("cartProducts", JSON.stringify(state));
         },
 
         removeFromCart(state, action) {
