@@ -7,6 +7,7 @@ import './scss/main.scss';
 import { BrowserRouter } from 'react-router';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
